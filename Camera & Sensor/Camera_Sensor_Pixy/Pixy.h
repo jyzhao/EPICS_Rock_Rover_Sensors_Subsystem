@@ -2,7 +2,7 @@
 #define PIXY_H
 
 #include "TPixy.h"
-#include "SPI.h"
+//#include "SPI.h"
 
 
 #define PIXY_SYNC_BYTE              0x5a

@@ -1,9 +1,9 @@
 //Camera_Sensor_Pixy_Testbench
 
-#include EEPROM.h
+//#include EEPROM.h
 #include <Pixy.h>
-
-const int EE_SIZE = 128;
+#include <SPI.h>
+//const int EE_SIZE = 128;
 
 Pixy pixy;
 
@@ -11,7 +11,7 @@ void setup()
 {
   Serial.begin(9600);
   Serial.print("Camera_Sensor_Pixy_Testbench\n");
-  Serial.print
+  //Serial.print
 }
 
 void loop()
@@ -19,7 +19,7 @@ void loop()
   static int i = 0;
   uint16_t blocks;
   
-  while (i < EE_SIZE){
+  //while (i < EE_SIZE){
   
   //case 1
   pixy.blocks[i].signature = 1;
@@ -52,6 +52,6 @@ void loop()
   i++;  
   
   //Serial.println(i);
-  }
+  //}
 }
   
