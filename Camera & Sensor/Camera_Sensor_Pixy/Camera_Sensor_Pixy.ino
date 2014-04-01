@@ -3,22 +3,27 @@
 //Pixy.h for Pixy firmware
 #include <SPI.h>  
 #include <Pixy.h>
+#include <EEPROM.h>
+const int EE_SIZE = 32;
+uint16_t blocks;
+static boolean finishRead = false;
 
 //global instance
 Pixy pixy;
+static int i =0;
 
 void setup()
 {
   //baud rate at 9600
   Serial.begin(9600);
-  Serial.print("EPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
+  Serial.println("EPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
+  Serial.println("Start reading from EEPROM");
 }
 
 void loop()
 { 
-  static int i = 0;
   int j;
-  uint16_t blocks;
+  //uint16_t blocks;
   char buf[16]; 
   
   //block contains the number of objects Pixy has detected
@@ -34,7 +39,37 @@ void loop()
   
   blocks = pixy.getBlocks();
   
+  while(i<EE_SIZE){
+    pixy.blocks[i].signature = EEPROM.read(3*i);
+    pixy.blocks[i].x = EEPROM.read(3*i+1);
+    pixy.blocks[i].y = EEPROM.read(3*i+2);
+    pixy.blocks[i].width = 0;
+    pixy.blocks[i].height = 0;
+    /*
+    Serial.print(EEPROM.read(3*i));
+    Serial.print(" ");
+    Serial.print(EEPROM.read(3*i+1));
+    Serial.print(" ");
+    Serial.println(EEPROM.read(3*i+2));
+    */
+    
+    //delay(500);
+    i++;
+  }
   
+  if (i == EE_SIZE && finishRead == false){
+   finishRead = true; 
+   for (j = 0;j<EE_SIZE;j++){
+     pixy.blocks[j].print();
+     delay(500);
+   }
+   Serial.println("Finish reading from EEPROM.");
+  }
+  
+  
+  
+  
+  /*
   if (blocks)
   {
     i++;
@@ -55,6 +90,7 @@ void loop()
         pixy.blocks[j].print();
       }
     }
-  }  
+  }
+*/
 }
 
