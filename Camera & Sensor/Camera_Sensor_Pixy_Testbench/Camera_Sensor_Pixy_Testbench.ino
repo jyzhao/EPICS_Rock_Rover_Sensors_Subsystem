@@ -20,12 +20,14 @@ void setup()
 
 void loop()
 {
-  for (i;i++;i<EE_SIZE){
+  while(i<EE_SIZE){
+    //Serial.println(i<EE_SIZE);
     writeDummyPixyToEEPROM(i);
+    i++;
     delay(20);
   }
   
-  if (i == EE_SIZE - 1) {
+  if (i == EE_SIZE && finishDump == false) {
     finishDump = true;
     Serial.println("Finish dumping data into EEPROM");
 }  
