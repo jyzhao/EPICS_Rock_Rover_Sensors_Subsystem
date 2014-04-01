@@ -30,6 +30,7 @@ void loop()
   if (i == EE_SIZE && finishDump == false) {
     finishDump = true;
     Serial.println("Finish dumping data into EEPROM");
+    Serial.end();
 }  
 
 }

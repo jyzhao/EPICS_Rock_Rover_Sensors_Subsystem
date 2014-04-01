@@ -64,6 +64,7 @@ void loop()
      delay(500);
    }
    Serial.println("Finish reading from EEPROM.");
+   Serial.end();
   }
   
   
