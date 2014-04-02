@@ -28,7 +28,6 @@ void setup()
   Serial.begin(9600);
   Serial.println("EPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
   Serial.println("Start reading from EEPROM");
-  pinMode(led,OUTPUT);
 }
 
 void loop()
