@@ -4,7 +4,6 @@
 #include <SPI.h>  
 #include <Pixy.h>
 #include <EEPROM.h>
-#include <string.>
 const int EE_SIZE = 32;
 uint16_t blocks;
 static boolean finishRead = false;
@@ -29,6 +28,7 @@ void setup()
   Serial.begin(9600);
   Serial.println("EPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
   Serial.println("Start reading from EEPROM");
+  pinMode(led,OUTPUT);
 }
 
 void loop()
@@ -78,6 +78,7 @@ void loop()
      sprintf(temp,"Color: %i; X: %i; Y: %i",pixy.blocks[j].signature,pixy.blocks[j].x,pixy.blocks[j].y);
      Serial.println(temp);
      //Serial.write(temp);
+     
      delay(500);
    }
    Serial.println("Finish reading from EEPROM.");
@@ -86,7 +87,7 @@ void loop()
   
   
   
-  
+  //communicate with Pixy via SPI
   /*
   if (blocks)
   {
