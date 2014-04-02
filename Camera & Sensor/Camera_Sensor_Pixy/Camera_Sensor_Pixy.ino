@@ -4,9 +4,20 @@
 #include <SPI.h>  
 #include <Pixy.h>
 #include <EEPROM.h>
+#include <string.>
 const int EE_SIZE = 32;
 uint16_t blocks;
 static boolean finishRead = false;
+
+enum Color {
+  Red = 1,
+  Orange = 2,
+  Yellow = 3,
+  Green = 4,
+  Cyan = 5,
+  Blue = 6,
+  Violet = 7
+};
 
 //global instance
 Pixy pixy;
@@ -25,6 +36,8 @@ void loop()
   int j;
   //uint16_t blocks;
   char buf[16]; 
+  Color colorCode;
+  char temp[64];
   
   //block contains the number of objects Pixy has detected
   //detailed object information is in the blocks[] array
@@ -60,7 +73,11 @@ void loop()
   if (i == EE_SIZE && finishRead == false){
    finishRead = true; 
    for (j = 0;j<EE_SIZE;j++){
-     pixy.blocks[j].print();
+     //pixy.blocks[j].print();
+     colorCode = Color(pixy.blocks[j].signature);
+     sprintf(temp,"Color: %i; X: %i; Y: %i",pixy.blocks[j].signature,pixy.blocks[j].x,pixy.blocks[j].y);
+     Serial.println(temp);
+     //Serial.write(temp);
      delay(500);
    }
    Serial.println("Finish reading from EEPROM.");
