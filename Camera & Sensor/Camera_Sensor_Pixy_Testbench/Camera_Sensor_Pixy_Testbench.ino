@@ -37,6 +37,8 @@ void loop()
 
 //subroutine for setup dunmmyPixy, write data to EEPROM
 void writeDummyPixyToEEPROM(int i){
+    char temp[64];
+  
     dummyPixy.blocks[i].signature = (int)random(1,8);
     dummyPixy.blocks[i].x = (int)random(255);
     dummyPixy.blocks[i].y = (int)random(255);
@@ -44,6 +46,7 @@ void writeDummyPixyToEEPROM(int i){
     EEPROM.write(3*i+1,dummyPixy.blocks[i].x);
     EEPROM.write(3*i+2,dummyPixy.blocks[i].y);
     
+    /*
     Serial.print("dummyPixy ");
     Serial.print(i);
     Serial.print(" at EEPROM location ");
@@ -55,4 +58,9 @@ void writeDummyPixyToEEPROM(int i){
     Serial.print(", Y: ");
     Serial.print(dummyPixy.blocks[i].y);
     Serial.println();
+    */
+    
+    sprintf(temp,"Color: %i; X: %i; Y: %i\n",dummyPixy.blocks[i].signature,dummyPixy.blocks[i].x,dummyPixy.blocks[i].y);
+    Serial.write(temp);
+
 }
