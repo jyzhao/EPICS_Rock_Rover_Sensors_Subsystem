@@ -21,13 +21,15 @@ enum Color {
 //global instance
 Pixy pixy;
 static int i =0;
+char val = 0;
 
 void setup()
 {
   //baud rate at 9600
   Serial.begin(9600);
   Serial.println("EPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
-  Serial.println("Start reading from EEPROM");
+  //Serial.println("Start reading from EEPROM");
+  Serial.println("Waiting for serial input\nPlease press RESET on transmitter Arduino");
 }
 
 void loop()
@@ -49,42 +51,46 @@ void loop()
   pixy.blocks[i].print() A member function that prints the detected object information to the serial port  
   */
   
-  blocks = pixy.getBlocks();
+  //blocks = pixy.getBlocks();
   
-  while(i<EE_SIZE){
-    pixy.blocks[i].signature = EEPROM.read(3*i);
-    pixy.blocks[i].x = EEPROM.read(3*i+1);
-    pixy.blocks[i].y = EEPROM.read(3*i+2);
-    pixy.blocks[i].width = 0;
-    pixy.blocks[i].height = 0;
-    /*
-    Serial.print(EEPROM.read(3*i));
-    Serial.print(" ");
-    Serial.print(EEPROM.read(3*i+1));
-    Serial.print(" ");
-    Serial.println(EEPROM.read(3*i+2));
-    */
-    
-    //delay(500);
-    i++;
+//  while(i<EE_SIZE){
+//    pixy.blocks[i].signature = EEPROM.read(3*i);
+//    pixy.blocks[i].x = EEPROM.read(3*i+1);
+//    pixy.blocks[i].y = EEPROM.read(3*i+2);
+//    pixy.blocks[i].width = 0;
+//    pixy.blocks[i].height = 0;
+//    /*
+//    Serial.print(EEPROM.read(3*i));
+//    Serial.print(" ");
+//    Serial.print(EEPROM.read(3*i+1));
+//    Serial.print(" ");
+//    Serial.println(EEPROM.read(3*i+2));
+//    */
+//    
+//    //delay(500);
+//    i++;
+//  }
+  
+//  if (i == EE_SIZE && finishRead == false){
+//   finishRead = true; 
+//   for (j = 0;j<EE_SIZE;j++){
+//     //pixy.blocks[j].print();
+//     colorCode = Color(pixy.blocks[j].signature);
+//     sprintf(temp,"Color: %i; X: %i; Y: %i",pixy.blocks[j].signature,pixy.blocks[j].x,pixy.blocks[j].y);
+//     Serial.println(temp);
+//     //Serial.write(temp);
+//     
+//     delay(500);
+//   }
+//   Serial.println("Finish reading from EEPROM.");
+//   Serial.end();
+//  }
+  
+  //read from tx,rx serial port
+  if(Serial.available() > 0){
+    val = Serial.read();
+    Serial.print(val);
   }
-  
-  if (i == EE_SIZE && finishRead == false){
-   finishRead = true; 
-   for (j = 0;j<EE_SIZE;j++){
-     //pixy.blocks[j].print();
-     colorCode = Color(pixy.blocks[j].signature);
-     sprintf(temp,"Color: %i; X: %i; Y: %i",pixy.blocks[j].signature,pixy.blocks[j].x,pixy.blocks[j].y);
-     Serial.println(temp);
-     //Serial.write(temp);
-     
-     delay(500);
-   }
-   Serial.println("Finish reading from EEPROM.");
-   Serial.end();
-  }
-  
-  
   
   //communicate with Pixy via SPI
   /*
