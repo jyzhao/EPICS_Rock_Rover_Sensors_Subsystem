@@ -3,7 +3,7 @@
 #include <EEPROM.h>
 #include <Pixy.h>
 #include <SPI.h>
-const int EE_SIZE = 32;
+const int EE_SIZE = 128;
 static int i = 0;
 uint16_t blocks;
 static boolean finishDump = false;

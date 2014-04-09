@@ -3,9 +3,7 @@
 //Pixy.h for Pixy firmware
 #include <SPI.h>  
 #include <Pixy.h>
-#include <EEPROM.h>
-const int EE_SIZE = 32;
-const char ENABLE[] = "cord";
+const char ENABLE = 'c';
 uint16_t blocks;
 static boolean finishRead = false;
 
@@ -22,7 +20,8 @@ enum Color {
 //global instance
 Pixy pixy;
 static int i =0;
-char val = 0;
+String val;
+char enable;
 
 void setup()
 {
@@ -36,7 +35,6 @@ void setup()
 void loop()
 { 
   int j;
-  //uint16_t blocks;
   char buf[16]; 
   Color colorCode;
   char temp[64];
@@ -89,8 +87,12 @@ void loop()
   
   //read from tx,rx serial port
   if(Serial.available() > 0){
-    val = Serial.read();
-    Serial.print(val);
+    val = Serial.readStringUntil('\n');
+    enable = Serial.read();
+    
+    if (enable == ENABLE){
+      Serial.print(val);
+    }
   }
   
   //communicate with Pixy via SPI
