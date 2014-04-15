@@ -3,10 +3,9 @@
 //Pixy.h for Pixy firmware
 #include <SPI.h>  
 #include <Pixy.h>
-#include <EEPROM.h>
-const int EE_SIZE = 32;
-const char ENABLE[] = "cord";
-uint16_t blocks;
+//#include <EEPROM.h>
+//const int EE_SIZE = 32;
+const char ENABLE = 'c';
 static boolean finishRead = false;
 
 enum Color {
@@ -21,7 +20,7 @@ enum Color {
 
 //global instance
 Pixy pixy;
-static int i =0;
+//static int i =0;
 char val = 0;
 
 void setup()
@@ -30,16 +29,18 @@ void setup()
   Serial.begin(9600);
   Serial.println("EPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
   //Serial.println("Start reading from EEPROM");
-  Serial.println("Waiting for serial input\nPlease press RESET on transmitter Arduino");
+  //Serial.println("Waiting for serial input\nPlease press RESET on transmitter Arduino");
+  Serial.println("Starting...");
 }
 
 void loop()
 { 
+  static int i = 0;
   int j;
-  //uint16_t blocks;
-  char buf[16]; 
+  uint16_t blocks;
+  char buf[32]; 
   Color colorCode;
-  char temp[64];
+  char temp[32];
   
   //block contains the number of objects Pixy has detected
   //detailed object information is in the blocks[] array
@@ -51,9 +52,7 @@ void loop()
   pixy.blocks[i].height The height of the detected object (1 to 200)
   pixy.blocks[i].print() A member function that prints the detected object information to the serial port  
   */
-  
-  //blocks = pixy.getBlocks();
-  
+    
 //  while(i<EE_SIZE){
 //    pixy.blocks[i].signature = EEPROM.read(3*i);
 //    pixy.blocks[i].x = EEPROM.read(3*i+1);
@@ -87,14 +86,18 @@ void loop()
 //   Serial.end();
 //  }
   
+  /*
   //read from tx,rx serial port
   if(Serial.available() > 0){
     val = Serial.read();
     Serial.print(val);
   }
+  */
   
   //communicate with Pixy via SPI
-  /*
+  
+  blocks = pixy.getBlocks();
+  
   if (blocks)
   {
     i++;
@@ -112,19 +115,18 @@ void loop()
         //detailed object information in blocks[] array
         sprintf(buf, "  block %d: ", j);
         Serial.print(buf); 
-        //pixy.blocks[j].print();
-        val = pixy.blocks[j].print();
-        Serial.print(val);
+        pixy.blocks[j].print();
         
+        /*
         if(Serial.available() > 0){
           if(Serial.read() == "cord"){
             Serial.write(val);
           }
         }
-        
+        */
       }
     }
   }
-*/
+
 }
 
