@@ -113,7 +113,7 @@ void loop()
       for (j=0; j<blocks; j++)
       {
         //detailed object information in blocks[] array
-        sprintf(buf, "  B%d:C%d:X%d:Y%d\n", j+1,pixy.blocks[j].signature,(pixy.blocks[j].x-320/2),(120/2-pixy.blocks[j].y));
+        sprintf(buf, "  B%d:C%d:X%d:Y%d\n", j+1,pixy.blocks[j].signature,(pixy.blocks[j].x-320/2),(120-pixy.blocks[j].y-120/2));
         Serial.print(buf); 
         //pixy.blocks[j].print();
         
