@@ -15,7 +15,7 @@ struct Block
   {
     char buf[64];
   
-    sprintf(buf, "Object: %d @ X: %d Y: %d\n", signature, x, y);
+    sprintf(buf, "sig: %d x: %d y: %d\n", signature, x, y);
     Serial.print(buf);  
   }
   uint16_t signature;
