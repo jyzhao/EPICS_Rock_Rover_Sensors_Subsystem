@@ -1,3 +1,8 @@
+//Sensor_Interpreter_Transmitter
+//Jiyuan Zhao
+//EPICS Rock Rover
+//Purdue University, 2014
+
 //include libraries
 //SPI.h for Pixy API
 //Pixy.h for Pixy firmware
@@ -27,10 +32,10 @@ void setup()
 {
   //baud rate at 9600
   Serial.begin(9600);
-  Serial.println("EPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
+  Serial.println("\nEPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
   //Serial.println("Start reading from EEPROM");
   //Serial.println("Waiting for serial input\nPlease press RESET on transmitter Arduino");
-  Serial.println("Starting...");
+  Serial.println("Start interpreting Pixy message and transmitting...");
 }
 
 void loop()
