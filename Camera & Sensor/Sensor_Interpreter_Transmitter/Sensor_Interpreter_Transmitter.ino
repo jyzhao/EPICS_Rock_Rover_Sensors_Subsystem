@@ -3,6 +3,14 @@
 //EPICS Rock Rover
 //Purdue University, 2014
 
+//This module interprets raw data from  string message from Sensor_Interpreter_Transmitter via UART Serial.
+//Wire Connection:
+//Interpreter_Transmitter -> Receiver
+//5V  -> 5V
+//GND -> GND
+//TX  -> RX
+//RX  -> TX
+
 //include libraries
 //SPI.h for Pixy API
 //Pixy.h for Pixy firmware
@@ -13,7 +21,7 @@
 const char ENABLE = 'c';
 static boolean finishRead = false;
 
-enum Color {
+enum Color { //color signature enumeration
   Red = 1,
   Orange = 2,
   Yellow = 3,
@@ -32,6 +40,8 @@ void setup()
 {
   //baud rate at 9600
   Serial.begin(9600);
+  
+  //print setup message
   Serial.println("\nEPICS: Rock Rover Team\nCamera & Sensor Subsystem\nPowered by Pixy\nJiyuan Zhao");
   //Serial.println("Start reading from EEPROM");
   //Serial.println("Waiting for serial input\nPlease press RESET on transmitter Arduino");
@@ -118,8 +128,8 @@ void loop()
       for (j=0; j<blocks; j++)
       {
         //detailed object information in blocks[] array
-        sprintf(buf, "  B%d:C%d:X%d:Y%d\n", j+1,pixy.blocks[j].signature,(pixy.blocks[j].x-320/2),(120-pixy.blocks[j].y-120/2));
-        Serial.print(buf); 
+        sprintf(temp, "  B%d:C%d:X%d:Y%d\n", j+1,pixy.blocks[j].signature,(pixy.blocks[j].x-320/2),(120-pixy.blocks[j].y-120/2));
+        Serial.print(temp); 
         //pixy.blocks[j].print();
         
         /*
