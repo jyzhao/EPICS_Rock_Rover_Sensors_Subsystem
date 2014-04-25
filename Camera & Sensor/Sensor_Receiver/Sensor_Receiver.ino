@@ -15,6 +15,7 @@ char val = 0;  //initialized val to an empty char
 
 void setup() {
   //set baud rate to 9600
+  Serial1.begin(9600);
   Serial.begin(9600);
   
   //print setup message
@@ -24,8 +25,8 @@ void setup() {
 
 void loop() {
   
-  if(Serial.available() > 0){  //listen to serial port, TRUE if there's a signal coming
-    val = Serial.read();  //read the signal and store it into val
+  if(Serial1.available() > 0){  //listen to serial port, TRUE if there's a signal coming
+    val = Serial1.read();  //read the signal and store it into val
     Serial.print(val);  //print val to serial monitor
   }
 }
