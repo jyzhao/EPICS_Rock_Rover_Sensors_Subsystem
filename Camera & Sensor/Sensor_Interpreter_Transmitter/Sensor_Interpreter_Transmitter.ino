@@ -57,6 +57,8 @@ void loop()
   Color colorCode;
   char temp[32];
   
+  //testbench code
+  
   //block contains the number of objects Pixy has detected
   //detailed object information is in the blocks[] array
   /*
@@ -101,14 +103,6 @@ void loop()
 //   Serial.end();
 //  }
   
-  /*
-  //read from tx,rx serial port
-  if(Serial.available() > 0){
-    val = Serial.read();
-    Serial.print(val);
-  }
-  */
-  
   //communicate with Pixy via SPI
   
   blocks = pixy.getBlocks();
@@ -132,6 +126,7 @@ void loop()
         Serial.print(temp); 
         //pixy.blocks[j].print();
         
+        //detect Enable signal
         /*
         if(Serial.available() > 0){
           if(Serial.read() == "cord"){
