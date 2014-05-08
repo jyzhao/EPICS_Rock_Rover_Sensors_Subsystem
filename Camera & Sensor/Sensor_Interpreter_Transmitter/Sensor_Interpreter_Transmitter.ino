@@ -115,14 +115,14 @@ void loop()
     if (i%50==0)
     {
       //Detected blocks => buf
-      sprintf(buf, "%d object detected:\n", blocks);
+      //sprintf(buf, "%d object detected:\n", blocks);
       //print buf to monitor
-      Serial.print(buf);
+      //Serial.print(buf);
       //print detailed object information in blocks[] array
       for (j=0; j<blocks; j++)
       {
         //detailed object information in blocks[] array
-        sprintf(temp, "  B%d:C%d:X%d:Y%d\n", j+1,pixy.blocks[j].signature,(pixy.blocks[j].x-320/2),(120-pixy.blocks[j].y-120/2));
+        sprintf(temp, "CC:%d:%d\n", pixy.blocks[j].x, pixy.blocks[j].y);
         Serial.print(temp); 
         //pixy.blocks[j].print();
         
